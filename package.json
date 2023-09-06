@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/ahmad244/node-web-server#readme",
   "dependencies": {
-    "express": "^4.18.2"
+    "express": "^4.18.2",
+    "openai": "^4.4.0"
   }
 }

@@ -1,16 +1,35 @@
 import express from "express";
+import OpenAI from "openai";
+
+const openai = new OpenAI({
+  apiKey: "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",
+});
 
 const app = express();
 
 app.use(express.json());
 
-
 app.get("/", function (req, res) {
   res.send("Hello World");
 });
 
-app.get("/chat-gpt", function (req, res) {
-  res.send("calling gpt service");
+app.get("/chat-gpt", async function (req, res) {
+  try {
+    const chatCompletion = await openai.chat.completions.create({
+      messages: [{ role: "user", content: "Say this is a test" }],
+      model: "gpt-3.5-turbo",
+    });
+
+    if (chatCompletion.choices && chatCompletion.choices.length > 0) {
+      console.log(chatCompletion.choices[0]);
+      res.send("Chat completion successful!");
+    } else {
+      res.status(500).send("Chat completion failed.");
+    }
+  } catch (error) {
+    console.error("Error:", error);
+    res.status(500).send("An error occurred.");
+  }
 });
 
 app.post("/echo", function (req, res) {
