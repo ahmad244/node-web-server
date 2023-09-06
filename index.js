@@ -1,5 +1,6 @@
 import express from "express";
 import OpenAI from "openai";
+import cors from "cors";
 
 const openai = new OpenAI({
   apiKey: "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",
@@ -9,20 +10,34 @@ const app = express();
 
 app.use(express.json());
 
+const corsOpts = {
+  origin: "http://poc-takamol.com:3000", // Replace with the actual origin of your frontend application
+  methods: ["GET", "POST","REQUEST"],
+  allowedHeaders: ["Content-Type"],
+};
+
+
+app.use(cors(corsOpts));
+
 app.get("/", function (req, res) {
   res.send("Hello World");
 });
 
-app.get("/chat-gpt", async function (req, res) {
+app.post("/chat-gpt", async function (req, res) {
   try {
     const chatCompletion = await openai.chat.completions.create({
-      messages: [{ role: "user", content: "Say this is a test" }],
+      messages: [...req.body.messages],
       model: "gpt-3.5-turbo",
     });
 
     if (chatCompletion.choices && chatCompletion.choices.length > 0) {
       console.log(chatCompletion.choices[0]);
-      res.send("Chat completion successful!");
+      res
+        .status(200)
+        .header({
+          "content-type": "application/json",
+        })
+        .send(JSON.stringify(chatCompletion, null, " "));
     } else {
       res.status(500).send("Chat completion failed.");
     }
