@@ -11,7 +11,7 @@ const app = express();
 app.use(express.json());
 
 const corsOpts = {
-  origin: "http://poc-takamol.com:3000", // Replace with the actual origin of your frontend application
+  origin: "https://ahmad244.github.io", // Replace with the actual origin of your frontend application
   methods: ["GET", "POST","REQUEST"],
   allowedHeaders: ["Content-Type"],
 };
