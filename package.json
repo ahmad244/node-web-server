@@ -5,7 +5,10 @@
   "description": "web server to replace the appian web server for chat gpt project",
   "main": "index.js",
   "scripts": {
+    "start": "node -r dotenv/config index.js dotenv_config_path=.env.development",
+    "start:prod": "node -r dotenv/config index.js dotenv_config_path=.env.production",
     "test": "echo \"Error: no test specified\" && exit 1"
+    
   },
   "repository": {
     "type": "git",
@@ -22,6 +25,7 @@
   "homepage": "https://github.com/ahmad244/node-web-server#readme",
   "dependencies": {
     "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
     "express": "^4.18.2",
     "openai": "^4.4.0"
   }

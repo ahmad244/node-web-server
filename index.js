@@ -1,6 +1,16 @@
 import express from "express";
 import OpenAI from "openai";
-import cors from "cors";
+// import cors from "cors";
+import { fileURLToPath } from "url";
+import { dirname } from "path";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+import { config } from "dotenv";
+config({ path: `${__dirname}/.env` });
+
+const ALLOWED_ORIGINS_URL = process.env.ALLOWED_ORIGINS_URL;
 
 // const express = require("express");
 // const OpenAI = require("openai");
@@ -14,14 +24,30 @@ const app = express();
 
 app.use(express.json());
 
-const corsOpts = {
-  origin: "https://ahmad244.github.io", // Replace with the actual origin of your frontend application
-  methods: ["GET", "POST","REQUEST"],
-  allowedHeaders: ["Content-Type"],
-};
+app.use((req, res, next) => {
+  console.log("req.headers.origin, req.headers.origin");
+  const allowedOrigins = [ALLOWED_ORIGINS_URL];
+  const origin = req.headers.origin;
+  if (allowedOrigins.includes(origin)) {
+    console.log("allowedOrigins.includes(origin) == > " + origin);
+    res.setHeader("Access-Control-Allow-Origin", origin);
+  }
+  res.setHeader("Access-Control-Max-Age", "1800");
+  res.setHeader(
+    "Access-Control-Allow-Methods",
+    "OPTIONS, DELETE, POST, GET, PATCH, PUT"
+  );
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+  res.setHeader("Access-Control-Allow-Credentials", "true");
+  next();
+});
+// const corsOpts = {
+//   origin: "https://ahmad244.github.io", // Replace with the actual origin of your frontend application
+//   methods: ["GET", "POST","REQUEST"],
+//   allowedHeaders: ["Content-Type"],
+// };
 
-
-app.use(cors(corsOpts));
+// app.use(cors(corsOpts));
 
 app.get("/", function (req, res) {
   res.send("Hello World");
