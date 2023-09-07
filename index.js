@@ -17,7 +17,7 @@ const ALLOWED_ORIGINS_URL = process.env.ALLOWED_ORIGINS_URL;
 // const cors = require("cors");
 
 const openai = new OpenAI({
-  apiKey: "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",
+  apiKey: "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",
 });
 
 const app = express();
