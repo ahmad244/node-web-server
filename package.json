@@ -1,4 +1,5 @@
 {
+  "type": "module",
   "name": "node-web-server",
   "version": "1.0.0",
   "description": "web server to replace the appian web server for chat gpt project",

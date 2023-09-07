@@ -1,6 +1,10 @@
-const express = require("express");
-const OpenAI = require("openai");
-const cors = require("cors");
+import express from "express";
+import OpenAI from "openai";
+import cors from "cors";
+
+// const express = require("express");
+// const OpenAI = require("openai");
+// const cors = require("cors");
 
 const openai = new OpenAI({
   apiKey: "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",
@@ -12,9 +16,10 @@ app.use(express.json());
 
 const corsOpts = {
   origin: "https://ahmad244.github.io", // Replace with the actual origin of your frontend application
-  methods: ["GET", "POST", "REQUEST"],
+  methods: ["GET", "POST","REQUEST"],
   allowedHeaders: ["Content-Type"],
 };
+
 
 app.use(cors(corsOpts));
 
