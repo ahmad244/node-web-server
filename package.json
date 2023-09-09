@@ -5,7 +5,7 @@
   "description": "web server to replace the appian web server for chat gpt project",
   "main": "index.js",
   "scripts": {
-    "start": "node -r dotenv/config index.js dotenv_config_path=.env.development",
+    "start": "nodemon -r dotenv/config index.js dotenv_config_path=.env.development",
     "start:prod": "node -r dotenv/config index.js dotenv_config_path=.env.production",
     "test": "echo \"Error: no test specified\" && exit 1"
     

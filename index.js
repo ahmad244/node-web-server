@@ -10,7 +10,7 @@ const __dirname = dirname(__filename);
 import { config } from "dotenv";
 config({ path: `${__dirname}/.env` });
 
-const ALLOWED_ORIGINS_URL = process.env.ALLOWED_ORIGINS_URL;
+const ALLOWED_ORIGINS_URL = process.env.ALLOWED_ORIGINS_URL.split(" ");
 
 // const express = require("express");
 // const OpenAI = require("openai");
@@ -26,7 +26,8 @@ app.use(express.json());
 
 app.use((req, res, next) => {
   console.log("req.headers.origin, req.headers.origin");
-  const allowedOrigins = [ALLOWED_ORIGINS_URL];
+  const allowedOrigins = [...ALLOWED_ORIGINS_URL];
+  console.log("req.headers.origin ==> " + req.headers.origin);
   const origin = req.headers.origin;
   if (allowedOrigins.includes(origin)) {
     console.log("allowedOrigins.includes(origin) == > " + origin);
