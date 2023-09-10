@@ -1,14 +1,14 @@
 import express from "express";
 import OpenAI from "openai";
 // import cors from "cors";
-import { fileURLToPath } from "url";
-import { dirname } from "path";
+// import { fileURLToPath } from "url";
+// import { dirname } from "path";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
+// const __filename = fileURLToPath(import.meta.url);
+// const __dirname = dirname(__filename);
 
-import { config } from "dotenv";
-config({ path: `${__dirname}/.env` });
+// import { config } from "dotenv";
+// config({ path: `${__dirname}/.env` });
 
 const ALLOWED_ORIGINS_URL = process.env.ALLOWED_ORIGINS_URL.split(" ");
 
@@ -79,6 +79,7 @@ app.post("/chat-gpt", async function (req, res) {
 });
 
 app.post("/echo", function (req, res) {
+  
   // Create an object with selected properties from req
   const reqData = {
     method: req.method,
@@ -88,7 +89,6 @@ app.post("/echo", function (req, res) {
     headers: req.headers,
     params: req.params,
   };
-
   // Stringify the modified object
   res
     .status(200)
